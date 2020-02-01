@@ -65,6 +65,23 @@ class test_randomList(unittest.TestCase):
         self.assertEqual(case1,['Kp', 'X', 'CzDW', 'ij', 'Q', 'K', 'qKVl', 'R', 'HiK', 'Zn'])
 
 
+    def test_generate_random_english_name(self):
+        randomList.generate_random_english_name(10)
+        randomList.generate_random_english_name(10, type='first')
+        randomList.generate_random_english_name(10, type='last')
+        randomList.generate_random_english_name(10, type='first', gender='male')
+
+    def test_generate_random_state(self):
+        a = randomList.generate_random_state(5)
+        b = randomList.generate_random_state(5,True)
+        self.assertEqual(a, ['Georgia', 'Oregon', 'Kansas', 'Alabama', 'New Hampshire'])
+        self.assertEqual(b,  ['MO', 'NH', 'WV', 'NH', 'DE'])
+
+
+
+
+
+
 class test_randomSample(unittest.TestCase):
 
     def setUp(self):
@@ -83,6 +100,10 @@ class test_randomSample(unittest.TestCase):
         self.rs.add_column("col2",['a','b','c','d','e'])
         df = self.rs.get_dataframe()
         self.assertEqual(df.columns.tolist(), ['col1','col2'])
+
+    def test_update_row_number(self):
+        self.rs.update_row_number(20)
+        self.assertEqual(self.rs.row_number, 20)
 
 
 
