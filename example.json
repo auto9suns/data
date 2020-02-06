@@ -1,7 +1,7 @@
 [
     {
         "name": "orders",
-        "size": 100,
+        "size": 20,
         "columns": [
             {
                 "name": "order_id",
@@ -15,7 +15,7 @@
             {
                 "name": "merchant_id",
                 "func": "pattern",
-                "args": {"pattern_list": [10004, 103241, 30002, 3816, 4193, 1947]}
+                "args": {"pattern_list": [10004, 103241, 30002, 382, 3816, 4193, 1947]}
             },
             {
                 "name": "order_from",
@@ -31,13 +31,19 @@
             {
                 "name": "merchant_id",
                 "func": "pattern",
-                "args": {"pattern_list": [10004, 103241, 30002, 3816, 4193, 1947]}
+                "args": {"pattern_list": [10004, 103241, 30002, 382, 3816, 4193, 1947]}
 
             },
             {
                 "name": "merchant_name",
                 "func": "company",
                 "align_col": "merchant_id"
+            },
+           {
+                "name": "merchant_chinese_address",
+                "func": "company",
+                "align_col": "merchant_id",
+                "args": {"locale": "zh_CN"}
             },
             {
                 "name": "merchant_city",
