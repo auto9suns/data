@@ -11,7 +11,7 @@ def schema_from_df(df):
     return schema
 
 def import_csv(csvpath):
-    return pd.read_csv(csvpath)
+    return pd.read_csv(csvpath, encoding = "ISO-8859-1")
 
 def schema_to_sql(schema):
     '''
@@ -25,4 +25,4 @@ def schema_to_sql(schema):
 
 
 if __name__ == "__main__":
-    schema_from_df(import_csv("orders.csv"))
+    schema_from_df(import_csv("unicorn.csv"))

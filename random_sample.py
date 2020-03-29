@@ -196,10 +196,15 @@ class randomSample():
 
 
     def get_dataframe(self):
-        return pd.DataFrame.from_dict(self.data)
+        df = pd.DataFrame.from_dict(self.data)
+        return df[list(self.data.keys())]
 
     def update_row_number(self, row_number):
         self.row_number = row_number
+
+    def deduplicate(self, df):
+        df.drop_duplicates(inplace= True)
+        return df
 
 
 def main(config_path):
@@ -210,7 +215,9 @@ def main(config_path):
             data = rs.generate_col(column.get("func"), column.get("args"), column.get("align_col"), column.get("mapping"), column.get("root_col"))
             rs.add_column(column.get("name"), data)
         df = rs.get_dataframe()
-        print(df.head(20))
+        print(df.columns)
+        print(df.head(10))
+        df.drop_duplicates(inplace=True)
         df.to_csv(rs.name + ".csv", index=False)
 
 
@@ -218,6 +225,13 @@ def parse_config(config_path):
     with open(config_path, 'r') as f:
         config = json.load(f)
     return config
+
+def python_object_from_file(filepath):
+    data = []
+    with open(filepath, 'r') as f:
+        for line in f:
+            data.append(line)
+    print (data)
 
 
 if __name__ == "__main__":
