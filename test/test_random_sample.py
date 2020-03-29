@@ -1,4 +1,4 @@
-from random_sample import randomList, randomSample
+from random_sample import randomData, randomSample
 import unittest
 import numpy as np
 
@@ -7,10 +7,11 @@ class test_randomList(unittest.TestCase):
 
     def setUp(self):
         np.random.seed(10)
+        self.rl = randomData()
 
     def test_generate_random_int(self):
-        case1 = randomList.generate_random_int(10,0,5)
-        case2 = randomList.generate_random_int(10)
+        case1 = randomData.random_int(10, 0, 5)
+        case2 = randomData.random_int(10)
         self.assertEqual(len(case1),10)
         self.assertEqual(len(case2),10)
         for i in case1:
@@ -18,8 +19,8 @@ class test_randomList(unittest.TestCase):
             self.assertLess(i,5)
 
     def test_generate_random_float(self):
-        case1 = randomList.generate_random_float(10, 0.0, 1)
-        case2 = randomList.generate_random_float(10)
+        case1 = randomData.random_float(10, 0.0, 1)
+        case2 = randomData.random_float(10)
         self.assertEqual(len(case1),10)
         self.assertEqual(len(case2),10)
         self.assertEqual(case1, [0.771320643266746, 0.0207519493594015, 0.6336482349262754, 0.7488038825386119,
@@ -32,9 +33,9 @@ class test_randomList(unittest.TestCase):
 
 
     def test_generate_random_pattern(self):
-        case1 = randomList.generate_random_pattern(10,['a','b','c'])
-        case2 = randomList.generate_random_pattern(100,['a','b','c'],pattern_ratio=[0.1,0.3,0.6])
-        case3 = randomList.generate_random_pattern(100,['a','b','c'],pattern_ratio=[0.2,0.8, 0 ])
+        case1 = randomData.random_pattern(10, ['a', 'b', 'c'])
+        case2 = randomData.random_pattern(100, ['a', 'b', 'c'], pattern_ratio=[0.1, 0.3, 0.6])
+        case3 = randomData.random_pattern(100, ['a', 'b', 'c'], pattern_ratio=[0.2, 0.8, 0])
         self.assertEqual(len(case1),10)
         self.assertEqual(len(case2),100)
         self.assertEqual(len(case3),100)
@@ -54,15 +55,22 @@ class test_randomList(unittest.TestCase):
 
 
     def test_generate_random_letter(self):
-        case1 = randomList.generate_random_letter(10)
+        case1 = self.rl.random_letter(10)
         self.assertEqual(len(case1),10)
         self.assertEqual(case1, ['j', 'K', 'p', 'a', 'X', 'C', 'z', 'D', 'W', 'D'])
 
 
-    def test_generate_random_sting(self):
-        case1 = randomList.generate_random_string(10)
+    def test_generate_random_string(self):
+        case1 = self.rl.random_string(10)
         self.assertEqual(len(case1),10)
         self.assertEqual(case1,['Kp', 'X', 'CzDW', 'ij', 'Q', 'K', 'qKVl', 'R', 'HiK', 'Zn'])
+
+    def test_random_popular_city(self):
+        print(self.rl.random_popular_city())
+
+
+
+
 
 
 class test_randomSample(unittest.TestCase):
@@ -83,6 +91,10 @@ class test_randomSample(unittest.TestCase):
         self.rs.add_column("col2",['a','b','c','d','e'])
         df = self.rs.get_dataframe()
         self.assertEqual(df.columns.tolist(), ['col1','col2'])
+
+    def test_update_row_number(self):
+        self.rs.update_row_number(20)
+        self.assertEqual(self.rs.row_number, 20)
 
 
 
